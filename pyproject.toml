@@ -109,10 +109,18 @@ build-backend = "setuptools.build_meta"
 include = ["vla_foundry*"]
 exclude = ["install*", "sagemaker*", "examples*"]
 
+[[tool.uv.index]]
+# Blackwell (sm_120) needs the cu128 build of torch; default PyPI wheel is cu126.
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
 [tool.uv.sources]
 # This specifies custom sources for dependencies
 draccus = { git = "https://github.com/marin-community/draccus" }
 robot-gym = { url = "https://github.com/ToyotaResearchInstitute/lbm_eval/releases/download/1.1.0/robot_gym-1.1.0-py3-none-any.whl" }
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
 
 [tool.ruff]
 line-length = 120
